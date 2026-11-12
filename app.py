@@ -11,7 +11,7 @@ import engine as E
 # -----------------------------------
 # CONFIG
 # -----------------------------------
-st.set_page_config(page_title="AjvoroStory Video Studio", page_icon="🎬", layout="wide")
+st.set_page_config(page_title="Ajvoro Story Video Studio", page_icon="🎬", layout="wide")
 
 ROOT = Path(__file__).parent
 OUTPUT_DIR = ROOT / "outputs"
