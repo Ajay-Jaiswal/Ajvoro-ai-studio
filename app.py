@@ -11,7 +11,7 @@ import engine as E
 # -----------------------------------
 # CONFIG
 # -----------------------------------
-st.set_page_config(page_title="Story Video Studio", page_icon="🎬", layout="wide")
+st.set_page_config(page_title="AjvoroStory Video Studio", page_icon="🎬", layout="wide")
 
 ROOT = Path(__file__).parent
 OUTPUT_DIR = ROOT / "outputs"
@@ -117,6 +117,30 @@ def build_cfg() -> E.RenderConfig:
         music_vol=ss.music_vol, duck=ss.duck,
     )
 
+def require_password():
+
+    expected_password = st.secrets["APP_PASSWORD"]
+
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+
+        st.title("🔐 Ajvoro Story Video Studio")
+
+        password = st.text_input(
+            "Enter Password",
+            type="password"
+        )
+
+        if st.button("Login"):
+            if password == expected_password:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect password!")
+
+        st.stop()
 
 def scene_obj(sc) -> E.Scene:
     i = sc["id"]
@@ -134,7 +158,8 @@ def scene_obj(sc) -> E.Scene:
 # -----------------------------------
 # HEADER + SIDEBAR
 # -----------------------------------
-st.title("🎬 STORY VIDEO STUDIO")
+require_password()
+st.title("🎬 Ajvoro STORY VIDEO STUDIO")
 st.caption("Images + story → YouTube-ready video. Fully offline: effects, camera, captions, "
            "narration, sound design, thumbnail and metadata.")
 
